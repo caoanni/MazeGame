@@ -5,7 +5,11 @@ package ca.cmpt213.as2;
  */
 public class MazeGame {
 
-    public static void main(){
+    public static void main(String[] args){
+
+        Maze m = new Maze();
+        UI.printFullMaze(m.getFullMaze());
+
     }
 
     private void startGame(){
