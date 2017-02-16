@@ -1,7 +1,6 @@
 package ca.cmpt213.as2;
 
 import java.util.Random;
-import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -170,7 +169,8 @@ public class Maze {
     //private static char[][] addFog(char[][] maze){
     //}
 
-    //public void updateMaze(GameObject[]){
+    //reveal the adjacent 8 cells around the newPosition
+    //public void updateMaze(int[] newPosition){
     //}
 
     public char[][] getFullMaze(){
