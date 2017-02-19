@@ -29,7 +29,7 @@ public class Mouse extends GameObject {
         if (isValidMove(direction, maze)) {
             currentPos[0] += direction[0];
             currentPos[1] += direction[1];
-            updateMaze(maze, currentPos);
+            //updateMaze(maze, currentPos);
             return true;
         }
         return false;
@@ -46,7 +46,7 @@ public class Mouse extends GameObject {
         return true;
     }
 
-    private void updateMaze(Maze maze, int[] newPosition) {
-        //maze.updateMaze(newPosition);
-    }
+//     private void updateMaze(Maze maze, int[] newPosition) {
+//         //maze.updateMaze(newPosition);
+//     }
 }
