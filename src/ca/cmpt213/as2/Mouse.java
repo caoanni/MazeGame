@@ -16,7 +16,7 @@ public class Mouse extends GameObject {
         return cheeseFound;
     }
 
-    public void isCheese(Cheese cheese, Maze maze) {
+    public void checkCheese(Cheese cheese, Maze maze) {
         if (this.currentPos[0] == cheese.currentPos[0] &&
                 this.currentPos[1] == cheese.currentPos[1]) {
             cheeseFound++;

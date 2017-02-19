@@ -10,6 +10,7 @@ public class Maze {
 
     private char[][] currentMaze;
     private char[][] fullMaze;
+    private char[][] fog;
 
     private static final int width = 20;
     private static final int height = 15;
@@ -26,6 +27,7 @@ public class Maze {
 
     public Maze(){
         fullMaze = generateRandomMaze();
+        fog = generateFog();
         //currentMaze = addFog(fullMaze);
     }
 
@@ -48,6 +50,17 @@ public class Maze {
         recursiveDivision(newMaze, 1, width-2, 1, height-2);
 
         return newMaze;
+    }
+
+
+    private char[][] generateFog(){
+        char[][] fog = new char[width][height];
+        for (int i = 1; i < width - 1 ; i++){
+            for (int j = 1; j < height - 1 ; j++){
+                fog[i][j] = '.';
+            }
+        }
+        return fog;
     }
 
     private void recursiveDivision(char[][] maze, int xStart, int xEnd, int yStart, int yEnd){
@@ -156,13 +169,14 @@ public class Maze {
 
     }
 
-    //return a maze with the unexplored areas hidden
-    //private static char[][] addFog(char[][] maze){
-    //}
-
     //reveal the adjacent 8 cells around the newPosition
-    //public void updateMaze(int[] newPosition){
-    //}
+    public void updateMaze(int[] newPosition){
+        for (int i = newPosition[0] - 1; i <= newPosition[0] + 1; i++){
+            for (int j = newPosition[1] - 1; j <= newPosition[1] + 1; j++){
+                fog[i][j] = ' ';
+            }
+        }
+    }
 
     //makes an extra hole when the wall is too long
     private void makeHole(int[] startPoint, int[] endPoint, char[][] maze){
@@ -219,6 +233,20 @@ public class Maze {
     }
 
     public char[][] getCurrentMaze(){
+        currentMaze = new char[width][height];
+
+        for (int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+
+                if (fog[i][j] == '.'){
+                    currentMaze[i][j] = '.';
+                }
+                else{
+                    currentMaze[i][j] = fullMaze[i][j];
+                }
+            }
+        }
+
         return currentMaze;
     }
 

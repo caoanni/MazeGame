@@ -12,13 +12,14 @@ public class MazeGame {
     private static Cat cat2;
     private static Cat cat3;
     private static Cheese cheese;
-    private static final int row = 20;
-    private static final int column = 15;
+    private static final int ROW = 20;
+    private static final int COLUMN = 15;
+    private static final int CHEESE_GOAL = 5;
 
     public static void main(String[] args){
 
         maze = new Maze();
-        UI.printMaze(maze.getFullMaze());
+        //UI.printMaze(maze.getFullMaze());
         objects = new GameObject[5];
         mouse = new Mouse(new int[]{1,1}, '@');
         cat1 = new Cat(new int[]{18,1}, '!');
@@ -35,16 +36,20 @@ public class MazeGame {
 
     private static void startGame(){
         int[] input;
-        //UI.printWelcome();
-        //UI.printHelp();
+        UI.printWelcome();
+        UI.printHelp();
         while (true) {
+            maze.updateMaze(mouse.getPosition());
+            UI.printMaze(generateMazeWithObjects(maze.getCurrentMaze()));
+            UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
             boolean isValid = false;
             while (!isValid) {
-                UI.printMaze(generateMazeWithObjects(maze.getFullMaze()));
+                //UI.printMaze(generateMazeWithObjects(maze.getFullMaze()));
+
                 input = UI.getInput();
                 isValid = mouse.move(input, maze);
                 if (isValid) {
-                    mouse.isCheese(cheese, maze);
+                    mouse.checkCheese(cheese, maze);
                 }
             }
             if (checkWinOrLose()) {
@@ -64,12 +69,13 @@ public class MazeGame {
         for (int i = 2; i <= 4; i++) {
             if (mouse.currentPos[0] == objects[i].currentPos[0] &&
                     mouse.currentPos[1] == objects[i].currentPos[1]) {
-                UI.printWinOrLoseScreen(false, mazeWithObjects);
+                UI.printWinOrLoseScreen(false, mazeWithObjects, mouse.getCheeseFound(), CHEESE_GOAL);
                 return true;
             }
         }
-        if (mouse.getCheeseFound() >= 5) {
-            UI.printWinOrLoseScreen(true, mazeWithObjects);
+        if (mouse.getCheeseFound() >= CHEESE_GOAL) {
+            UI.printWinOrLoseScreen(true, mazeWithObjects, mouse.getCheeseFound(), CHEESE_GOAL);
+            UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
             return true;
         }
         return false;
@@ -77,9 +83,9 @@ public class MazeGame {
 
 
     private static char[][] generateMazeWithObjects(char[][] maze){
-        char[][] mazeWithObjects = new char[row][column];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
+        char[][] mazeWithObjects = new char[ROW][COLUMN];
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COLUMN; j++) {
                 mazeWithObjects[i][j] = maze[i][j];
             }
         }
