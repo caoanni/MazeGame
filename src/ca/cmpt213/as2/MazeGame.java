@@ -35,6 +35,8 @@ public class MazeGame {
 
     private static void startGame(){
         int[] input;
+        //UI.printWelcome();
+        //UI.printHelp();
         while (true) {
             boolean isValid = false;
             while (!isValid) {

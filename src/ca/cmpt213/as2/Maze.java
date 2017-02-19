@@ -118,31 +118,22 @@ public class Maze {
 
 
         if (foundX && foundY){
-            //get random from xStart to x-1
-            int xHole1 = r.nextInt((x) - xStart) + xStart;
+            int[] x1start = {xStart, y};
+            int[] x1end = {x, y};
+            makeHole(x1start, x1end, maze);
 
+            int[] x2start = {x + 1, y};
+            int[] x2end = {xEnd, y};
+            makeHole(x2start, x2end, maze);
 
-            //make hole at [that][y]
-            maze[xHole1][y] = ' ';
-            //System.out.println("xHole1 = " + xHole1);
+            int[] y1start = {x, yStart};
+            int[] y1end = {x, y };
+            makeHole(y1start, y1end, maze);
 
-            //get random from x+1 to xEnd
-            int xHole2 = r.nextInt(xEnd+1 - (x+1)) + (x+1);
-            //make hole at [that][y]
-            maze[xHole2][y] = ' ';
-            //System.out.println("xHole2 = " + xHole2);
+            int[] y2start = {x, y + 1};
+            int[] y2end = {x, yEnd};
+            makeHole(y2start, y2end, maze);
 
-            //get random from yStart to y-1
-            int yHole1 = r.nextInt((y) - yStart) + yStart;
-            //System.out.println("yHole1 = " + yHole1);
-            //make hole at [x][that]
-            maze[x][yHole1] = ' ';
-
-            //get random from y+1 to yEnd
-            int yHole2 = r.nextInt(yEnd+1 - (y+1)) + (y+1);
-            //System.out.println("yHole2 = " + yHole2);
-            //make hole at [x][that]
-            maze[x][yHole2] = ' ';
         }
         else if (foundX){
             int xHole = r.nextInt((yEnd+1) - yStart) + yStart;
@@ -172,6 +163,56 @@ public class Maze {
     //reveal the adjacent 8 cells around the newPosition
     //public void updateMaze(int[] newPosition){
     //}
+
+    //makes an extra hole when the wall is too long
+    private void makeHole(int[] startPoint, int[] endPoint, char[][] maze){
+
+        //in case of bad input
+        if ((startPoint.length != 2) || (endPoint.length != 2)){
+            return;
+        }
+        int[] newHole = new int[2];
+        Random r = new Random();
+
+        int constantAxis;
+        int variableAxis;
+        //which direction is the wall going?
+        if (startPoint[0] == endPoint[0]){
+            constantAxis = 0;
+            variableAxis = 1;
+        }
+        else{
+            constantAxis = 1;
+            variableAxis = 0;
+        }
+
+        newHole[constantAxis] = startPoint[constantAxis];
+
+        if (endPoint[variableAxis] == startPoint[variableAxis]){
+            newHole[variableAxis] = endPoint[variableAxis];
+        }
+        else{
+            newHole[variableAxis] = r.nextInt(endPoint[variableAxis] - startPoint[variableAxis]) + startPoint[variableAxis];
+        }
+
+        maze[newHole[0]][newHole[1]] = ' ';
+
+        //recurse if the wall is longer than 5
+        if (newHole[variableAxis] - startPoint[variableAxis] > 5){
+            int[] end = new int[2];
+            end[constantAxis] = newHole[constantAxis];
+            end[variableAxis] = newHole[variableAxis] - 1;
+            makeHole(startPoint, end, maze);
+        }
+        if (endPoint[variableAxis] - newHole[variableAxis] > 5){
+            int[] start = new int[2];
+            start[constantAxis] = newHole[constantAxis];
+            start[variableAxis] = newHole[variableAxis] + 1;
+            makeHole(start, endPoint, maze);
+        }
+
+        return;
+    }
 
     public char[][] getFullMaze(){
         return fullMaze;

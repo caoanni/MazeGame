@@ -7,15 +7,34 @@ import java.util.Scanner;
  */
 public class UI {
 
-    private String introduction;
+    private static String introduction =
+        "----------------------------------------\n"
+     + "Welcome to Cat and Mouse Maze Adventure!\n"
+     +  "by Anni Cao and Amritpaul Gill\n"
+     +  "----------------------------------------";
 
-    private String instructions;
+    private static String instructions =
+        "DIRECTIONS:\n"
+     +  "\tFind 5 cheese before a cat eats you!\n"
+     +  "LEGEND:\n"
+     +  "\t#: Wall\n"
+     +  "\t@: You (a mouse)\n"
+     +  "\t!: Cat\n"
+     +  "\t$: Cheese\n"
+     +  "\t.: Unexplored space\n"
+     +  "MOVES:\n"
+     +  "\tUse W (up), A (left), S (down) and D (right) to move.\n"
+     +  "\t(You must press enter after each move).";
+
+            ;
 
 
     public static void printWelcome(){
+        System.out.println(introduction);
     }
 
     public static void printHelp(){
+        System.out.println(instructions);
     }
 
     public static void printMaze(char[][] maze){
