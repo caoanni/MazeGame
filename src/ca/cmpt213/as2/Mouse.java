@@ -29,7 +29,6 @@ public class Mouse extends GameObject {
         if (isValidMove(direction, maze)) {
             currentPos[0] += direction[0];
             currentPos[1] += direction[1];
-            //updateMaze(maze, currentPos);
             return true;
         }
         return false;
@@ -41,12 +40,9 @@ public class Mouse extends GameObject {
         int col = currentPos[1] + direction[1];
         char[][] fullMaze = maze.getFullMaze();
         if (fullMaze[row][col] == '#') {
+            System.out.println("Invalid move: you cannot move through walls!");
             return false;
         }
         return true;
     }
-
-//     private void updateMaze(Maze maze, int[] newPosition) {
-//         //maze.updateMaze(newPosition);
-//     }
 }
