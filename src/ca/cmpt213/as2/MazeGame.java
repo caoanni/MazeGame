@@ -5,7 +5,7 @@ package ca.cmpt213.as2;
  */
 public class MazeGame {
 
-    private static Maze maze;
+    public static Maze maze;
     private static GameObject[] objects;
     private static Mouse mouse;
     private static Cat cat1;
@@ -75,14 +75,14 @@ public class MazeGame {
         }
         if (mouse.getCheeseFound() >= CHEESE_GOAL) {
             UI.printWinOrLoseScreen(true, mazeWithObjects, mouse.getCheeseFound(), CHEESE_GOAL);
-            UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
+            //UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
             return true;
         }
         return false;
     }
 
 
-    private static char[][] generateMazeWithObjects(char[][] maze){
+    public static char[][] generateMazeWithObjects(char[][] maze){
         char[][] mazeWithObjects = new char[ROW][COLUMN];
         for (int i = 0; i < ROW; i++) {
             for (int j = 0; j < COLUMN; j++) {
