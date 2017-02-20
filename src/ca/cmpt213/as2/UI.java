@@ -26,8 +26,6 @@ public class UI {
      +  "\tUse W (up), A (left), S (down) and D (right) to move.\n"
      +  "\t(You must press enter after each move).";
 
-            ;
-
 
     public static void printWelcome(){
         System.out.println(introduction);
@@ -38,13 +36,17 @@ public class UI {
     }
 
     public static void printMaze(char[][] maze){
+        System.out.println("\nMaze:");
         for (int i = 0; i < maze.length; i++){
             for (int j = 0; j < maze[0].length; j++){
                 System.out.print(maze[i][j]);
             }
             System.out.println();
         }
-        System.out.println();
+    }
+
+    public static void showProgress(int found, int goal){
+        System.out.println("Cheese collected: " + found + " of " + goal);
     }
 
     public static int[] getInput(){
@@ -52,7 +54,7 @@ public class UI {
         Scanner scan = new  Scanner(System.in);
         int[] result = new int[2];
         while (!isValid) {
-            System.out.println("Please enter one of the four letter(W, A, S, D):");
+            System.out.print("Enter your move [WASD?]: ");
             char input = scan.next().toUpperCase().charAt(0);
             switch (input) {
                 case 'W':
@@ -75,20 +77,25 @@ public class UI {
                     result[1] = 1;
                     isValid = true;
                     break;
+                //need a case for m (map) and ? (help)
                 default:
-                    System.out.println("The input is not valid.");
+                    System.out.println("Invalid move. Please enter just A (left), S (down), D (right), or W (up).");
             }
         }
         return result;
     }
 
-    public static void printWinOrLoseScreen(boolean isWin, char[][] maze){
+    public static void printWinOrLoseScreen(boolean isWin, char[][] maze, int cheeseFound, int goal){
         if (isWin) {
-            System.out.println("Mouse win the game!");
+            System.out.println("Congratulations! You won!");
         } else {
-            System.out.println("Mouse lose the game!");
+            System.out.println("I'm sorry, you have been eaten!");
         }
         System.out.println();
         printMaze(maze);
+        showProgress(cheeseFound, goal);
+        if (!isWin){
+            System.out.println("GAME OVER; please try again.");
+        }
     }
 }

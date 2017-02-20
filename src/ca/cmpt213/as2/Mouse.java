@@ -16,7 +16,7 @@ public class Mouse extends GameObject {
         return cheeseFound;
     }
 
-    public void isCheese(Cheese cheese, Maze maze) {
+    public void checkCheese(Cheese cheese, Maze maze) {
         if (this.currentPos[0] == cheese.currentPos[0] &&
                 this.currentPos[1] == cheese.currentPos[1]) {
             cheeseFound++;
@@ -29,7 +29,7 @@ public class Mouse extends GameObject {
         if (isValidMove(direction, maze)) {
             currentPos[0] += direction[0];
             currentPos[1] += direction[1];
-            updateMaze(maze, currentPos);
+            //updateMaze(maze, currentPos);
             return true;
         }
         return false;
@@ -46,7 +46,7 @@ public class Mouse extends GameObject {
         return true;
     }
 
-    private void updateMaze(Maze maze, int[] newPosition) {
-        //maze.updateMaze(newPosition);
-    }
+//     private void updateMaze(Maze maze, int[] newPosition) {
+//         //maze.updateMaze(newPosition);
+//     }
 }
