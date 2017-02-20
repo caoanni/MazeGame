@@ -28,7 +28,7 @@ public class Maze {
     public Maze(){
         fullMaze = generateRandomMaze();
         fog = generateFog();
-        //currentMaze = addFog(fullMaze);
+        //currentMaze = fullMaze;
     }
 
     private char[][] generateRandomMaze(){

@@ -1,6 +1,7 @@
 package ca.cmpt213.as2;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Created by anni on 2/12/17.
@@ -8,6 +9,10 @@ import java.util.Random;
 public class Cat extends GameObject {
 
     private int[] lastPosition;
+    private final Integer[][] MOVES = { {0, -1},
+                                    {-1, 0},
+                                    {0, 1},
+                                    {1, 0}};
 
     public Cat(int[] initialPosition, char symbol) {
         super(initialPosition, symbol);
@@ -16,12 +21,8 @@ public class Cat extends GameObject {
 
     @Override
     public boolean move(int[] direction, Maze maze){
-        boolean isValid = false;
-        int[] randomPos = direction;
-        while (!isValid) {
-            randomPos = createRandomPosition();
-            isValid = isValidMove(randomPos, maze);
-        }
+        int[] randomPos = createRandomPosition(maze);
+        System.out.println("Cat Move: " + randomPos[0] + ", " + randomPos[1]);
         lastPosition[0] = currentPos[0];
         lastPosition[1] = currentPos[1];
         currentPos[0] += randomPos[0];
@@ -29,40 +30,39 @@ public class Cat extends GameObject {
         return true;
     }
 
-    private int[] createRandomPosition() {
-        Random rand = new Random();
-        int n = rand.nextInt(4) + 1;
+
+    private int[] createRandomPosition(Maze maze) {
+
+        ArrayList<Integer[]> validMoves = new ArrayList<>();
+        for (int i = 0; i < MOVES.length; i++ ) {
+            if (isValid(MOVES[i], maze)) {
+                validMoves.add(MOVES[i]);
+            }
+        }
         int[] result = new int[2];
-        switch (n) {
-            case 1 : // move left
-                result[0] = 0;
-                result[1] = -1;
-                break;
-            case 2 : // move up
-                result[0] = -1;
-                result[1] = 0;
-                break;
-            case 3 : // move right
-                result[0] = 0;
-                result[1] = 1;
-                break;
-            case 4 : // move down
-                result[0] = 1;
-                result[1] = 0;
-            default:
-                assert false;
+        if (validMoves.size() > 1) {
+            Random rand = new Random();
+            int n = rand.nextInt(validMoves.size());
+            result[0] = validMoves.get(n)[0];
+            result[1] = validMoves.get(n)[1];
+        } else if (validMoves.size() == 1) {
+            result[0] = validMoves.get(0)[0];
+            result[1] = validMoves.get(0)[1];
+        } else {
+            result[0] = lastPosition[0] - currentPos[0];
+            result[1] = lastPosition[1] - currentPos[1];
         }
         return result;
     }
 
-    private boolean isValidMove(int[] direction, Maze maze) {
+    private boolean isValid(Integer[] direction, Maze maze) {
         int row = currentPos[0] + direction[0];
         int col = currentPos[1] + direction[1];
-        if (lastPosition[0] == row && lastPosition[1] == col) {
-            return false;
-        }
         char[][] fullMaze = maze.getFullMaze();
         if (fullMaze[row][col] == '#') {
+            return false;
+        }
+        if (row == lastPosition[0] && col == lastPosition[1]) {
             return false;
         }
         return true;

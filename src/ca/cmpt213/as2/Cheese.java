@@ -32,6 +32,9 @@ public class Cheese extends GameObject {
         if (fullMaze[row][col] == '#') {
             return false;
         }
+        if (row == currentPos[0] && col == currentPos[1]) {
+            return false;
+        }
         return true;
     }
 

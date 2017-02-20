@@ -47,6 +47,7 @@ public class MazeGame {
                 //UI.printMaze(generateMazeWithObjects(maze.getFullMaze()));
 
                 input = UI.getInput();
+                System.out.println("Input: " + input);
                 isValid = mouse.move(input, maze);
                 if (isValid) {
                     mouse.checkCheese(cheese, maze);
