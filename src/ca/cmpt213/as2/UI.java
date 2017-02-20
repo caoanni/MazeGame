@@ -77,7 +77,12 @@ public class UI {
                     result[1] = 1;
                     isValid = true;
                     break;
-                //need a case for m (map) and ? (help)
+                case '?':
+                    printHelp();
+                    break;
+                case 'M':
+                    printMaze(MazeGame.generateMazeWithObjects(MazeGame.maze.getFullMaze()));
+                    break;
                 default:
                     System.out.println("Invalid move. Please enter just A (left), S (down), D (right), or W (up).");
             }
