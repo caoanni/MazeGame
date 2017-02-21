@@ -4,7 +4,11 @@ import java.util.Random;
 import java.util.ArrayList;
 
 /**
- * Created by anni on 2/12/17.
+ * The game area. uses recursive division to generate the maze
+ * layout, and has another array of "fog" to keep track of
+ * what parts of the map are still obscured.
+ *
+ * @authors Anni Cao and Amritpaul Gill
  */
 public class Maze {
 
@@ -15,12 +19,6 @@ public class Maze {
     private static final int width = 20;
     private static final int height = 15;
 
-    //20 spaces wide, including walls
-
-    //15 tall, including walls
-
-    //so the maze itself is 18x13
-
     // #  = wall
     //" " = open
     // . = foggy
@@ -28,7 +26,6 @@ public class Maze {
     public Maze(){
         fullMaze = generateRandomMaze();
         fog = generateFog();
-        //currentMaze = fullMaze;
     }
 
     private char[][] generateRandomMaze(){
@@ -46,9 +43,7 @@ public class Maze {
                 else newMaze[j][i] = ' ';
             }
         }
-
         recursiveDivision(newMaze, 1, width-2, 1, height-2);
-
         return newMaze;
     }
 
@@ -64,16 +59,9 @@ public class Maze {
     }
 
     private void recursiveDivision(char[][] maze, int xStart, int xEnd, int yStart, int yEnd){
-    	/*
-    	System.out.println("xStart = " + xStart);
-    	System.out.println("xEnd = " + xEnd);
-    	System.out.println("yStart = " + yStart);
-    	System.out.println("yEnd = " + yEnd);
-    	*/
         //base case
         if (xEnd <= xStart + 2) return;
         if (yEnd <= yStart + 2) return;
-
 
         //make two lines
         Random r = new Random();
@@ -94,42 +82,29 @@ public class Maze {
             }
         }
 
-
         boolean foundX = false;
         boolean foundY = false;
         int x = 0;
         int y = 0;
 
-        //System.out.println("possibleXs = " + possibleXs.size());
-        //System.out.println("possibleYs = " + possibleYs.size());
-
         if (possibleXs.size() > 0){
             x = r.nextInt(possibleXs.size());
             x = possibleXs.get(x);
-            //System.out.println("x = " + x);
             foundX = true;
 
             for (int i = yStart; i <= yEnd; i++){
                 maze[x][i] = '#';
             }
         }
-
         if (possibleYs.size() > 0){
             y = r.nextInt(possibleYs.size());
             y = possibleYs.get(y);
-            //System.out.println("y = " + y);
             foundY = true;
 
             for (int i = xStart; i <= xEnd; i++){
                 maze[i][y] = '#';
             }
         }
-
-        //punch holes (try two on each side of intersection)
-
-        //x range is xStart to X, X to xEnd
-
-
         if (foundX && foundY){
             int[] x1start = {xStart, y};
             int[] x1end = {x, y};
@@ -146,21 +121,15 @@ public class Maze {
             int[] y2start = {x, y + 1};
             int[] y2end = {x, yEnd};
             makeHole(y2start, y2end, maze);
-
         }
         else if (foundX){
             int xHole = r.nextInt((yEnd+1) - yStart) + yStart;
-            //make hole at [x][that]
             maze[x][xHole] = ' ';
         }
         else if (foundY){
             int yHole = r.nextInt((xEnd+1) - xStart) + xStart;
-            //make hole at [x][that]
             maze[yHole][y] = ' ';
         }
-
-        //System.out.println("x = " + x);
-        //System.out.println("y = " + y);
 
         recursiveDivision(maze, xStart, x-1, yStart, y-1);
         recursiveDivision(maze, xStart, x-1, y+1, yEnd);
@@ -180,11 +149,11 @@ public class Maze {
 
     //makes an extra hole when the wall is too long
     private void makeHole(int[] startPoint, int[] endPoint, char[][] maze){
-
         //in case of bad input
         if ((startPoint.length != 2) || (endPoint.length != 2)){
             return;
         }
+
         int[] newHole = new int[2];
         Random r = new Random();
 
@@ -237,7 +206,6 @@ public class Maze {
 
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-
                 if (fog[i][j] == '.'){
                     currentMaze[i][j] = '.';
                 }
@@ -246,7 +214,6 @@ public class Maze {
                 }
             }
         }
-
         return currentMaze;
     }
 

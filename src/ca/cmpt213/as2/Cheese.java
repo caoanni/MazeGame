@@ -3,7 +3,12 @@ package ca.cmpt213.as2;
 import java.util.Random;
 
 /**
- * Created by anni on 2/12/17.
+ * The target object of the game.
+ * Will teleport to another random part of the maze to
+ * pretend another piece of cheese has been laid down
+ * after it has been eaten.
+ *
+ * @authors Anni Cao and Amritpaul Gill
  */
 public class Cheese extends GameObject {
 

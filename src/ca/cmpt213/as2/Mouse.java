@@ -1,7 +1,11 @@
 package ca.cmpt213.as2;
 
 /**
- * Created by anni on 2/12/17.
+ * Represents the player in the game.
+ * Will move around in accordance to input that
+ * is given to it.
+ *
+ * @authors Anni Cao and Amritpaul Gill
  */
 public class Mouse extends GameObject {
 
@@ -33,7 +37,6 @@ public class Mouse extends GameObject {
         }
         return false;
     }
-
 
     private boolean isValidMove(int[] direction, Maze maze) {
         int row = currentPos[0] + direction[0];

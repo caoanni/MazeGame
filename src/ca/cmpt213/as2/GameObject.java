@@ -1,8 +1,11 @@
 package ca.cmpt213.as2;
 
 /**
+ * This is the superclass for the mouse, cat, and cheese objects.
+ * It provides fields and methods for movement and the object's representation
+ * in the game.
  *
- * Created by anni on 2/12/17.
+ * @authors Anni Cao and Amritpaul Gill
  */
 public abstract class GameObject {
 

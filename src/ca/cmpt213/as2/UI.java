@@ -3,7 +3,11 @@ package ca.cmpt213.as2;
 import java.util.Scanner;
 
 /**
- * Created by anni on 2/12/17.
+ * Takes input for the player controls and also prints the maze
+ * and any necessary messages for the game. Is entirely text based
+ * so it has no GUI.
+ *
+ * @authors Anni Cao and Amritpaul Gill
  */
 public class UI {
 
