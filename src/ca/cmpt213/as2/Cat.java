@@ -4,7 +4,11 @@ import java.util.Random;
 import java.util.ArrayList;
 
 /**
- * Created by anni on 2/12/17.
+ * Cats are the enemies of the game, they will wander the
+ * maze in hopes of catching the player.
+ * They move around randomly.
+ *
+ * @authors Anni Cao and Amritpaul Gill
  */
 public class Cat extends GameObject {
 
@@ -22,7 +26,6 @@ public class Cat extends GameObject {
     @Override
     public boolean move(int[] direction, Maze maze){
         int[] randomPos = createRandomPosition(maze);
-        System.out.println("Cat Move: " + randomPos[0] + ", " + randomPos[1]);
         lastPosition[0] = currentPos[0];
         lastPosition[1] = currentPos[1];
         currentPos[0] += randomPos[0];

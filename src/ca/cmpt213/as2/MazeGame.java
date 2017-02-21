@@ -1,7 +1,12 @@
 package ca.cmpt213.as2;
 
 /**
- * Created by anni on 2/12/17.
+ * This class is the main game controller for MazeGame.
+ * It holds the other objects and gets them to do their work,
+ * and also controls the flow the game.
+ *
+ * @authors Anni Cao and Amritpaul Gill
+ *
  */
 public class MazeGame {
 
@@ -19,7 +24,6 @@ public class MazeGame {
     public static void main(String[] args){
 
         maze = new Maze();
-        //UI.printMaze(maze.getFullMaze());
         objects = new GameObject[5];
         mouse = new Mouse(new int[]{1,1}, '@');
         cat1 = new Cat(new int[]{18,1}, '!');
@@ -44,10 +48,7 @@ public class MazeGame {
             UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
             boolean isValid = false;
             while (!isValid) {
-                //UI.printMaze(generateMazeWithObjects(maze.getFullMaze()));
-
                 input = UI.getInput();
-                System.out.println("Input: " + input);
                 isValid = mouse.move(input, maze);
                 if (isValid) {
                     mouse.checkCheese(cheese, maze);
@@ -76,7 +77,6 @@ public class MazeGame {
         }
         if (mouse.getCheeseFound() >= CHEESE_GOAL) {
             UI.printWinOrLoseScreen(true, mazeWithObjects, mouse.getCheeseFound(), CHEESE_GOAL);
-            //UI.showProgress(mouse.getCheeseFound(), CHEESE_GOAL);
             return true;
         }
         return false;
