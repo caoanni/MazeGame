@@ -1,4 +1,6 @@
-package ca.cmpt213.as2;
+package ca.cmpt213.as2.mazegame;
+
+import ca.cmpt213.as2.userinterface.UI;
 
 /**
  * This class is the main game controller for MazeGame.

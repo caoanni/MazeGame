@@ -1,4 +1,4 @@
-package ca.cmpt213.as2;
+package ca.cmpt213.as2.mazegame;
 
 import java.util.Random;
 

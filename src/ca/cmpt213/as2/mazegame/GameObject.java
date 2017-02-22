@@ -1,4 +1,4 @@
-package ca.cmpt213.as2;
+package ca.cmpt213.as2.mazegame;
 
 /**
  * This is the superclass for the mouse, cat, and cheese objects.

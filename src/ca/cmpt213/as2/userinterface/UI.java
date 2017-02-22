@@ -1,4 +1,6 @@
-package ca.cmpt213.as2;
+package ca.cmpt213.as2.userinterface;
+
+import ca.cmpt213.as2.mazegame.MazeGame;
 
 import java.util.Scanner;
 
