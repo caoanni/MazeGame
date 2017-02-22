@@ -100,7 +100,6 @@ public class UI {
         } else {
             System.out.println("I'm sorry, you have been eaten!");
         }
-        System.out.println();
         printMaze(maze);
         showProgress(cheeseFound, goal);
         if (!isWin){

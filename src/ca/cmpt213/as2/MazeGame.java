@@ -91,9 +91,9 @@ public class MazeGame {
             }
         }
         for(int k = 0; k <= 4; k++) {
-            int x = objects[k].getPosition()[0];
-            int y = objects[k].getPosition()[1];
-            mazeWithObjects[x][y] = objects[k].getSymbol();
+            int row = objects[k].getPosition()[0];
+            int col = objects[k].getPosition()[1];
+            mazeWithObjects[row][col] = objects[k].getSymbol();
         }
         return mazeWithObjects;
     }

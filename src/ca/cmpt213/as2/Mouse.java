@@ -46,7 +46,6 @@ public class Mouse extends GameObject {
             System.out.println("Invalid move: you cannot move through walls!");
             return false;
         }
-        System.out.println("Mouse new position: " + row + ',' + col);
         return true;
     }
 }
